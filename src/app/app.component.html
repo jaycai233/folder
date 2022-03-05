@@ -1,5 +1,5 @@
 <button (click)="addFolder()">Add folder to root</button>
-<div *ngFor="let item of node.children">
+<div *ngFor="let item of node.children" class="m-5">
   <app-folder-component [nodeList]="item" (deleteFromParent)="deleteChild($event)"></app-folder-component>
 </div>
 
