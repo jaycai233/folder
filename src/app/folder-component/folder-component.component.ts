@@ -10,19 +10,14 @@ export class FolderComponentComponent implements OnInit {
   @Input() nodeList: NodeModel;
   @Output() deleteFromParent = new EventEmitter<string>();
   showCreateButton = false;
-  type: 'folder' | 'file' | 'unset' | null;
+  childType: 'folder' | 'file' | 'unset' | null;
   inputName: string;
 
   constructor() {}
 
-  ngOnInit(): void {
-    if (!this.nodeList.name) {
-      this.type = 'folder';
-    }
-    console.log(this.nodeList);
-  }
+  ngOnInit(): void {}
 
-  addNode(item: NodeModel): void {
+  addChildNode(item: NodeModel): void {
     if (!this.inputName) {
       return;
     }
@@ -30,9 +25,12 @@ export class FolderComponentComponent implements OnInit {
       item.children = [];
     }
     item.children.push({
-      type: this.type,
+      type: this.childType,
       name: this.inputName,
-      id: (item.children.length + 1).toString()
+      id:
+        item.children.length > 0
+          ? (Number(item.children[item.children.length - 1].id) + 1).toString()
+          : '1'
     });
     this.clearInput();
   }
@@ -49,17 +47,17 @@ export class FolderComponentComponent implements OnInit {
     }
   }
 
-  setType(type: string): void {
+  setChildType(type: string): void {
     if (type) {
       switch (type) {
         case 'folder':
-          this.type = 'folder';
+          this.childType = 'folder';
           break;
         case 'file':
-          this.type = 'file';
+          this.childType = 'file';
           break;
         default:
-          this.type = 'unset';
+          this.childType = 'unset';
       }
       this.showCreateButton = false;
     }
@@ -67,7 +65,7 @@ export class FolderComponentComponent implements OnInit {
 
   clearInput(): void {
     this.inputName = '';
-    this.type = null;
+    this.childType = null;
   }
 
   updateSelfName(): void {

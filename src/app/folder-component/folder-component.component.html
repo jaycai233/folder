@@ -19,21 +19,21 @@
       </div>
     </div>
     <div *ngIf="showCreateButton">
-      <button (click)="setType('folder')">folder</button>
-      <button (click)="setType('file')">file</button>
+      <button (click)="setChildType('folder')">folder</button>
+      <button (click)="setChildType('file')">file</button>
     </div>
-    <ng-container *ngTemplateOutlet="setName"></ng-container>
+    <ng-container *ngTemplateOutlet="setChildName"></ng-container>
 
   </div>
 
-  <ng-template #setName>
-    <div *ngIf="type" class="input-section p-5">
+  <ng-template #setChildName>
+    <div *ngIf="childType" class="input-section p-5">
       <div class="icon">
-        <img *ngIf="type ==='file'" src="/assets/file-regular.svg">
-        <img *ngIf="type ==='folder'" src="/assets/folder-open-regular.svg">
+        <img *ngIf="childType ==='file'" src="/assets/file-regular.svg">
+        <img *ngIf="childType ==='folder'" src="/assets/folder-open-regular.svg">
       </div>
       <input [(ngModel)]="inputName">
-      <div class="icon" (click)="addNode(nodeList)"><img src="/assets/tick.svg"> </div>
+      <div class="icon" (click)="addChildNode(nodeList)"><img src="/assets/tick.svg"> </div>
       <div class="icon" (click)="clearInput()"><img src="/assets/wrong.svg"> </div>
     </div>
   </ng-template>
