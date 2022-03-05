@@ -1,0 +1,51 @@
+  <div class="item-container p-5">
+    <ng-container *ngIf="nodeList.name; else setSelfName">
+      <div class="icon">
+        <img *ngIf="nodeList.type ==='file'" src="/assets/file-regular.svg">
+        <img *ngIf="nodeList.type ==='folder'" src="/assets/folder-open-regular.svg">
+      </div>
+      <span>{{nodeList.name}}</span>
+      <div class="action-section">
+        <div class="icon" *ngIf="nodeList.type === 'folder'" (click)="showCreateButton =! showCreateButton"><img
+            src="/assets/add.svg"> </div>
+        <div class="icon" (click)="deleteNode()"><img src="/assets/delete.svg"> </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="sub-section ml-2" *ngIf="nodeList.name">
+    <div *ngIf="nodeList.children && nodeList.children.length  >  0">
+      <div *ngFor="let item of nodeList.children" class="node-content">
+        <app-folder-component [nodeList]="item" (deleteFromParent)="deleteChild($event)"></app-folder-component>
+      </div>
+    </div>
+    <div *ngIf="showCreateButton">
+      <button (click)="setType('folder')">folder</button>
+      <button (click)="setType('file')">file</button>
+    </div>
+    <ng-container *ngTemplateOutlet="setName"></ng-container>
+
+  </div>
+
+  <ng-template #setName>
+    <div *ngIf="type" class="input-section p-5">
+      <div class="icon">
+        <img *ngIf="type ==='file'" src="/assets/file-regular.svg">
+        <img *ngIf="type ==='folder'" src="/assets/folder-open-regular.svg">
+      </div>
+      <input [(ngModel)]="inputName">
+      <div class="icon" (click)="addNode(nodeList)"><img src="/assets/tick.svg"> </div>
+      <div class="icon" (click)="clearInput()"><img src="/assets/wrong.svg"> </div>
+    </div>
+  </ng-template>
+
+
+  <ng-template #setSelfName>
+    <div class="input-section p-5">
+      <div class="icon">
+        <img src="/assets/folder-open-regular.svg">
+      </div>
+      <input [(ngModel)]="inputName">
+      <div class="icon" (click)="updateSelfName()"><img src="/assets/tick.svg"> </div>
+      <div class="icon" (click)="deleteNode()"><img src="/assets/wrong.svg"> </div>
+    </div>
+  </ng-template>

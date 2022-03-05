@@ -1,0 +1,39 @@
+.ml-2 {
+  margin-left: 20px;
+}
+
+.action-section {
+  display: none;
+}
+
+.item-container {
+  font-size: 18px;
+  border: 1px solid transparent;
+  width: fit-content;
+}
+
+.p-5 {
+  padding: 5px;
+}
+
+.item-container:hover {
+  border: 1px solid black;
+  width: fit-content;
+  border-radius: 5px;
+}
+
+.item-container:hover>.action-section {
+  display: unset;
+}
+
+
+.icon {
+  display: inline-block;
+  margin-left: 3px;
+  margin-right: 3px;
+  vertical-align: middle;
+}
+
+.icon img {
+  width: 14px;
+}
